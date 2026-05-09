@@ -64,46 +64,39 @@ export function Navbar({ variant = "default" }: NavbarProps) {
       {/* Announcement Banner */}
       <div
         className={cn(
-          "fixed top-2 left-4 right-4 z-[60] h-10 flex items-center justify-center cursor-pointer transition-all duration-300 rounded-full",
+          "fixed top-2 left-4 right-4 z-[60] h-10 flex items-center justify-center cursor-pointer transition-all duration-500 rounded-full",
           "bg-[#9EECD2]",
-          hidden && !mobileMenuOpen && "-translate-y-full opacity-0"
+          hidden && !mobileMenuOpen && "-translate-y-16 opacity-0"
         )}
         onClick={handleBannerClick}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        <div className="flex items-center gap-2 text-sm font-medium text-black overflow-hidden perspective-500">
+        <div className="flex items-center gap-2 text-sm font-medium text-black overflow-hidden">
           <span className={cn(
             "transition-transform duration-300",
             isHovering && "animate-bounce"
           )}>🔥</span>
-          <span className="relative h-5 overflow-hidden">
+          <span className="relative h-5 overflow-hidden inline-flex items-center">
             <span 
-              className={cn(
-                "inline-flex transition-all duration-500 ease-out",
-                isHovering ? "-translate-y-full opacity-0 rotateX-90" : "translate-y-0 opacity-100 rotateX-0"
-              )}
+              className="inline-flex transition-all duration-500 ease-out"
               style={{
-                transformStyle: "preserve-3d",
-                transform: isHovering ? "translateY(-100%) rotateX(90deg)" : "translateY(0) rotateX(0deg)"
+                transform: isHovering ? "translateY(-100%)" : "translateY(0)",
+                opacity: isHovering ? 0 : 1
               }}
             >
-              The Category Leaderboard
+              The Category Leaderboard - Live Now
             </span>
             <span 
-              className={cn(
-                "absolute left-0 top-full inline-flex transition-all duration-500 ease-out",
-                isHovering ? "-translate-y-full opacity-100 rotateX-0" : "translate-y-0 opacity-0 rotateX--90"
-              )}
+              className="absolute left-0 inline-flex transition-all duration-500 ease-out"
               style={{
-                transformStyle: "preserve-3d",
-                transform: isHovering ? "translateY(-100%) rotateX(0deg)" : "translateY(0) rotateX(-90deg)"
+                transform: isHovering ? "translateY(0)" : "translateY(100%)",
+                opacity: isHovering ? 1 : 0
               }}
             >
-              The Category Leaderboard
+              The Category Leaderboard - Live Now
             </span>
           </span>
-          <span>- Live Now</span>
         </div>
       </div>
 
@@ -113,7 +106,7 @@ export function Navbar({ variant = "default" }: NavbarProps) {
           scrolled || variant === "default"
             ? "glass py-3"
             : "bg-transparent py-5",
-          hidden && !mobileMenuOpen && "-translate-y-[calc(100%+56px)]"
+          hidden && !mobileMenuOpen && "-translate-y-32"
         )}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
