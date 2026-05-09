@@ -64,36 +64,43 @@ export function Navbar({ variant = "default" }: NavbarProps) {
       {/* Announcement Banner */}
       <div
         className={cn(
-          "fixed top-0 left-0 right-0 z-[60] h-10 flex items-center justify-center cursor-pointer transition-all duration-300",
+          "fixed top-2 left-4 right-4 z-[60] h-10 flex items-center justify-center cursor-pointer transition-all duration-300 rounded-full",
           "bg-[#9EECD2]",
-          hidden && !mobileMenuOpen && "-translate-y-full"
+          hidden && !mobileMenuOpen && "-translate-y-full opacity-0"
         )}
         onClick={handleBannerClick}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
-        <div className="flex items-center gap-2 text-sm font-medium text-black overflow-hidden">
-          <span>🔥</span>
+        <div className="flex items-center gap-2 text-sm font-medium text-black overflow-hidden perspective-500">
           <span className={cn(
-            "transition-all duration-300",
+            "transition-transform duration-300",
             isHovering && "animate-bounce"
-          )}>
-            <span className="inline-flex">
-              {["T", "h", "e", " ", "C", "a", "t", "e", "g", "o", "r", "y", " ", "L", "e", "a", "d", "e", "r", "b", "o", "a", "r", "d"].map((char, i) => (
-                <span
-                  key={i}
-                  className={cn(
-                    "inline-block transition-transform duration-300",
-                    isHovering && "animate-pulse"
-                  )}
-                  style={{
-                    animationDelay: isHovering ? `${i * 0.03}s` : "0s",
-                    transform: isHovering ? `translateY(${Math.sin(i * 0.5) * 3}px)` : "translateY(0)"
-                  }}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </span>
-              ))}
+          )}>🔥</span>
+          <span className="relative h-5 overflow-hidden">
+            <span 
+              className={cn(
+                "inline-flex transition-all duration-500 ease-out",
+                isHovering ? "-translate-y-full opacity-0 rotateX-90" : "translate-y-0 opacity-100 rotateX-0"
+              )}
+              style={{
+                transformStyle: "preserve-3d",
+                transform: isHovering ? "translateY(-100%) rotateX(90deg)" : "translateY(0) rotateX(0deg)"
+              }}
+            >
+              The Category Leaderboard
+            </span>
+            <span 
+              className={cn(
+                "absolute left-0 top-full inline-flex transition-all duration-500 ease-out",
+                isHovering ? "-translate-y-full opacity-100 rotateX-0" : "translate-y-0 opacity-0 rotateX--90"
+              )}
+              style={{
+                transformStyle: "preserve-3d",
+                transform: isHovering ? "translateY(-100%) rotateX(0deg)" : "translateY(0) rotateX(-90deg)"
+              }}
+            >
+              The Category Leaderboard
             </span>
           </span>
           <span>- Live Now</span>
@@ -102,11 +109,11 @@ export function Navbar({ variant = "default" }: NavbarProps) {
 
       <header
         className={cn(
-          "fixed top-10 left-0 right-0 z-50 transition-all duration-500",
+          "fixed top-14 left-0 right-0 z-50 transition-all duration-500",
           scrolled || variant === "default"
             ? "glass py-3"
             : "bg-transparent py-5",
-          hidden && !mobileMenuOpen && "-translate-y-[calc(100%+40px)]"
+          hidden && !mobileMenuOpen && "-translate-y-[calc(100%+56px)]"
         )}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">

@@ -49,21 +49,21 @@ export default function HomePage() {
       <Navbar variant="transparent" />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 px-4 lg:px-8">
-        <div className="relative w-full max-w-[1600px] mx-auto rounded-3xl overflow-hidden min-h-[85vh]">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-0 px-4 lg:px-8">
+        <div className="relative w-full max-w-[1600px] mx-auto rounded-3xl overflow-hidden min-h-screen -mt-20">
           {/* Background Image with Zoom and Blur */}
           <div className="absolute inset-0">
             <Image
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%209%2C%202026%2C%2010_01_17%20PM-6h30qM7AFJuQqrxbQ8L2hoFGmS5tra.png"
               alt="Hero Background"
               fill
-              className="object-cover scale-125 blur-md"
+              className="object-cover scale-150 blur-lg"
               priority
             />
-            <div className="absolute inset-0 bg-blue-900/30" />
+            <div className="absolute inset-0 bg-blue-900/40" />
           </div>
 
-          <div className="relative z-10 flex flex-col items-center justify-center min-h-[85vh] px-6 lg:px-12 py-16">
+          <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 lg:px-12 py-16 pt-32">
             {/* Top Badge */}
             <Reveal delay={0}>
               <div className="flex flex-col items-center gap-3 mb-8">
