@@ -51,16 +51,16 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-4 lg:px-8">
         <div className="relative w-full max-w-[1600px] mx-auto rounded-3xl overflow-hidden min-h-[85vh]">
-          {/* Background Image with Blur */}
+          {/* Background Image with Zoom and Blur */}
           <div className="absolute inset-0">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-GDDnAqTxuhLtehulXCE7PfXmBMUznT.png"
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%209%2C%202026%2C%2010_01_17%20PM-6h30qM7AFJuQqrxbQ8L2hoFGmS5tra.png"
               alt="Hero Background"
               fill
-              className="object-cover"
+              className="object-cover scale-125 blur-md"
               priority
             />
-            <div className="absolute inset-0 bg-blue-900/20" />
+            <div className="absolute inset-0 bg-blue-900/30" />
           </div>
 
           <div className="relative z-10 flex flex-col items-center justify-center min-h-[85vh] px-6 lg:px-12 py-16">
@@ -89,8 +89,14 @@ export default function HomePage() {
                 <span className="block italic" style={{ fontFamily: 'var(--font-display)' }}>We Create</span>
                 <span className="flex items-center justify-center gap-4 mt-2 flex-wrap">
                   <span>Category</span>
-                  <span className="inline-flex items-center justify-center w-16 h-20 md:w-24 md:h-28 lg:w-32 lg:h-36 bg-white/90 rounded-2xl shadow-xl">
-                    <span className="text-2xl md:text-3xl lg:text-4xl">🥤</span>
+                  <span className="inline-flex items-center justify-center w-20 h-24 md:w-28 md:h-32 lg:w-36 lg:h-44 bg-white/90 rounded-2xl shadow-xl overflow-hidden p-2">
+                    <Image
+                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ChatGPT%20Image%20May%209%2C%202026%2C%2010_01_17%20PM-6h30qM7AFJuQqrxbQ8L2hoFGmS5tra.png"
+                      alt="Red Bull Can"
+                      width={120}
+                      height={160}
+                      className="object-contain"
+                    />
                   </span>
                   <span>Leaders</span>
                 </span>
