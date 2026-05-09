@@ -3,18 +3,66 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
+import { ChevronDown, ArrowUpRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Services", href: "/services" },
-  { name: "Portfolio", href: "/portfolio" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/contact" },
+  { 
+    name: "Services", 
+    href: "/services",
+    hasDropdown: true,
+    items: [
+      { name: "SEO Services", href: "/services/seo" },
+      { name: "Content Marketing", href: "/services/content" },
+      { name: "Digital PR", href: "/services/pr" },
+      { name: "Social Media", href: "/services/social" },
+    ]
+  },
+  { 
+    name: "Industries", 
+    href: "/industries",
+    hasDropdown: true,
+    items: [
+      { name: "E-commerce", href: "/industries/ecommerce" },
+      { name: "Finance", href: "/industries/finance" },
+      { name: "Travel", href: "/industries/travel" },
+      { name: "Healthcare", href: "/industries/healthcare" },
+    ]
+  },
+  { 
+    name: "International", 
+    href: "/international",
+    hasDropdown: true,
+    items: [
+      { name: "USA", href: "/international/usa" },
+      { name: "UK", href: "/international/uk" },
+      { name: "Europe", href: "/international/europe" },
+      { name: "Asia", href: "/international/asia" },
+    ]
+  },
+  { 
+    name: "About", 
+    href: "/about",
+    hasDropdown: true,
+    items: [
+      { name: "Our Story", href: "/about/story" },
+      { name: "Team", href: "/about/team" },
+      { name: "Culture", href: "/about/culture" },
+    ]
+  },
+  { name: "Work", href: "/portfolio" },
+  { name: "Careers", href: "/careers" },
+  { 
+    name: "Blog & Resources", 
+    href: "/blog",
+    hasDropdown: true,
+    items: [
+      { name: "Blog", href: "/blog" },
+      { name: "Case Studies", href: "/blog/case-studies" },
+      { name: "Guides", href: "/blog/guides" },
+    ]
+  },
+  { name: "Webinar", href: "/webinar" },
 ]
 
 interface NavbarProps {
@@ -24,114 +72,123 @@ interface NavbarProps {
 export function Navbar({ variant = "default" }: NavbarProps) {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
-  const [scrolled, setScrolled] = React.useState(false)
-  const [hidden, setHidden] = React.useState(false)
-  const lastScrollY = React.useRef(0)
+  const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
+  const [mobileOpenDropdowns, setMobileOpenDropdowns] = React.useState<string[]>([])
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      
-      // Determine if scrolled past threshold
-      setScrolled(currentScrollY > 50)
-      
-      // Hide/show on scroll direction
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        setHidden(true)
-      } else {
-        setHidden(false)
-      }
-      
-      lastScrollY.current = currentScrollY
-    }
-    
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  const toggleMobileDropdown = (name: string) => {
+    setMobileOpenDropdowns(prev => 
+      prev.includes(name) 
+        ? prev.filter(n => n !== name)
+        : [...prev, name]
+    )
+  }
 
   return (
     <>
-      <header
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          scrolled || variant === "default"
-            ? "glass py-3"
-            : "bg-transparent py-5",
-          hidden && !mobileMenuOpen && "-translate-y-full"
-        )}
-      >
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
+      {/* Top Announcement Bar */}
+      <div className="bg-[#a8f0d4] py-2.5 text-center">
+        <Link href="/leaderboard" className="inline-flex items-center gap-2 text-sm font-medium text-[#1a1f36]">
+          <span className="text-base">&#128293;</span>
+          The Category Leaderboard - Live Now
+        </Link>
+      </div>
+
+      {/* Main Navigation */}
+      <header className="bg-[#1a1f36] sticky top-0 z-50">
+        <nav className="mx-auto flex max-w-[1400px] items-center justify-between px-6 lg:px-8 py-4">
           {/* Logo */}
-          <Link href="/" className="group relative z-10">
-            <span 
-              className="text-2xl font-semibold tracking-tight transition-opacity duration-300 group-hover:opacity-70"
-              style={{ fontFamily: 'var(--font-display)' }}
-            >
-              Folio<span className="text-accent">.</span>
+          <Link href="/" className="group relative z-10 flex-shrink-0">
+            <span className="text-xl font-semibold tracking-tight text-white">
+              Rise at Seven<span className="text-[#a8f0d4]">*</span>
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:items-center lg:gap-1">
             {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={cn(
-                  "relative px-4 py-2 text-sm font-medium transition-colors duration-300",
-                  pathname === item.href
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                )}
+              <div 
+                key={item.name} 
+                className="relative"
+                onMouseEnter={() => item.hasDropdown && setOpenDropdown(item.name)}
+                onMouseLeave={() => setOpenDropdown(null)}
               >
-                {item.name}
-                {/* Active indicator */}
-                <span
+                <Link
+                  href={item.href}
                   className={cn(
-                    "absolute bottom-1 left-4 right-4 h-[2px] bg-foreground rounded-full transition-transform duration-300 origin-left",
-                    pathname === item.href ? "scale-x-100" : "scale-x-0"
+                    "relative flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-200",
+                    pathname === item.href || pathname?.startsWith(item.href + "/")
+                      ? "text-white"
+                      : "text-white/80 hover:text-white"
                   )}
-                />
-              </Link>
+                >
+                  {item.name}
+                  {item.hasDropdown && (
+                    <ChevronDown className={cn(
+                      "h-3.5 w-3.5 transition-transform duration-200",
+                      openDropdown === item.name && "rotate-180"
+                    )} />
+                  )}
+                  {item.name === "About" && (
+                    <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#4a90e2] text-[10px] text-white">
+                      2
+                    </span>
+                  )}
+                </Link>
+                
+                {/* Dropdown Menu */}
+                {item.hasDropdown && item.items && openDropdown === item.name && (
+                  <div className="absolute left-0 top-full pt-2 z-50">
+                    <div className="bg-white rounded-lg shadow-xl py-2 min-w-[200px] border border-gray-100">
+                      {item.items.map((subItem) => (
+                        <Link
+                          key={subItem.name}
+                          href={subItem.href}
+                          className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#1a1f36] transition-colors"
+                        >
+                          {subItem.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
           </div>
 
-          {/* Desktop Actions */}
+          {/* Desktop CTA */}
           <div className="hidden lg:flex lg:items-center lg:gap-3">
-            <ThemeToggle />
             <Link
               href="/contact"
-              className="group relative inline-flex items-center gap-2 px-6 py-2.5 text-sm font-medium text-background bg-foreground rounded-full overflow-hidden transition-all duration-300 hover:shadow-lg"
+              className="group inline-flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white border border-white/30 rounded-full transition-all duration-300 hover:bg-white hover:text-[#1a1f36]"
             >
-              <span className="relative z-10">Get in Touch</span>
-              <span className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              Get in Touch
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
 
           {/* Mobile menu button */}
           <div className="flex items-center gap-3 lg:hidden">
-            <ThemeToggle />
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full bg-muted/50 transition-colors hover:bg-muted"
+              className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-colors hover:bg-white/20"
             >
               <span className="sr-only">Toggle menu</span>
               <div className="relative w-5 h-4">
                 <span
                   className={cn(
-                    "absolute left-0 top-0 h-0.5 w-5 bg-foreground transition-all duration-300",
+                    "absolute left-0 top-0 h-0.5 w-5 bg-white transition-all duration-300",
                     mobileMenuOpen && "top-1/2 -translate-y-1/2 rotate-45"
                   )}
                 />
                 <span
                   className={cn(
-                    "absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 bg-foreground transition-all duration-300",
+                    "absolute left-0 top-1/2 h-0.5 w-5 -translate-y-1/2 bg-white transition-all duration-300",
                     mobileMenuOpen && "opacity-0"
                   )}
                 />
                 <span
                   className={cn(
-                    "absolute left-0 bottom-0 h-0.5 w-5 bg-foreground transition-all duration-300",
+                    "absolute left-0 bottom-0 h-0.5 w-5 bg-white transition-all duration-300",
                     mobileMenuOpen && "bottom-1/2 translate-y-1/2 -rotate-45"
                   )}
                 />
@@ -148,77 +205,65 @@ export function Navbar({ variant = "default" }: NavbarProps) {
           mobileMenuOpen ? "visible" : "invisible"
         )}
       >
-        {/* Backdrop */}
         <div
           className={cn(
-            "absolute inset-0 bg-background/95 backdrop-blur-xl transition-opacity duration-500",
+            "absolute inset-0 bg-[#1a1f36] transition-opacity duration-500",
             mobileMenuOpen ? "opacity-100" : "opacity-0"
           )}
           onClick={() => setMobileMenuOpen(false)}
         />
         
-        {/* Menu Content */}
-        <div className="relative h-full flex flex-col justify-center px-8">
-          <nav className="space-y-2">
-            {navigation.map((item, index) => (
-              <div
-                key={item.name}
-                className={cn(
-                  "overflow-hidden transition-all duration-500",
-                  mobileMenuOpen ? "opacity-100" : "opacity-0"
-                )}
-                style={{
-                  transitionDelay: mobileMenuOpen ? `${index * 0.05 + 0.1}s` : "0s"
-                }}
-              >
-                <Link
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={cn(
-                    "block py-3 text-4xl font-medium transition-all duration-300",
-                    pathname === item.href
-                      ? "text-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:translate-x-2"
+        <div className="relative h-full flex flex-col pt-24 px-6 overflow-y-auto">
+          <nav className="space-y-1">
+            {navigation.map((item) => (
+              <div key={item.name}>
+                <div className="flex items-center justify-between">
+                  <Link
+                    href={item.href}
+                    onClick={() => !item.hasDropdown && setMobileMenuOpen(false)}
+                    className="block py-3 text-2xl font-medium text-white"
+                  >
+                    {item.name}
+                  </Link>
+                  {item.hasDropdown && (
+                    <button 
+                      onClick={() => toggleMobileDropdown(item.name)}
+                      className="p-2 text-white"
+                    >
+                      <ChevronDown className={cn(
+                        "h-5 w-5 transition-transform",
+                        mobileOpenDropdowns.includes(item.name) && "rotate-180"
+                      )} />
+                    </button>
                   )}
-                  style={{ fontFamily: 'var(--font-display)' }}
-                >
-                  {item.name}
-                </Link>
+                </div>
+                {item.hasDropdown && item.items && mobileOpenDropdowns.includes(item.name) && (
+                  <div className="pl-4 pb-2 space-y-1">
+                    {item.items.map((subItem) => (
+                      <Link
+                        key={subItem.name}
+                        href={subItem.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block py-2 text-lg text-white/70 hover:text-white"
+                      >
+                        {subItem.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </nav>
 
-          {/* Mobile CTA */}
-          <div
-            className={cn(
-              "mt-12 transition-all duration-500",
-              mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            )}
-            style={{ transitionDelay: mobileMenuOpen ? "0.4s" : "0s" }}
-          >
+          <div className="mt-8 pt-8 border-t border-white/10">
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="inline-flex items-center gap-2 px-8 py-4 text-lg font-medium text-background bg-foreground rounded-full"
+              className="inline-flex items-center gap-2 px-6 py-3 text-base font-medium text-[#1a1f36] bg-white rounded-full"
             >
-              Start a Project
+              Get in Touch
+              <ArrowUpRight className="h-4 w-4" />
             </Link>
-          </div>
-
-          {/* Social Links */}
-          <div
-            className={cn(
-              "absolute bottom-12 left-8 right-8 flex items-center justify-between text-sm text-muted-foreground transition-all duration-500",
-              mobileMenuOpen ? "opacity-100" : "opacity-0"
-            )}
-            style={{ transitionDelay: mobileMenuOpen ? "0.5s" : "0s" }}
-          >
-            <span>&copy; {new Date().getFullYear()} Folio</span>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-foreground transition-colors">Twitter</a>
-              <a href="#" className="hover:text-foreground transition-colors">LinkedIn</a>
-              <a href="#" className="hover:text-foreground transition-colors">Instagram</a>
-            </div>
           </div>
         </div>
       </div>

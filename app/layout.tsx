@@ -15,8 +15,8 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'Folio - Premium Portfolio Template',
-  description: 'An award-winning, modern portfolio template crafted for creative professionals, agencies, and freelancers.',
+  title: 'Rise at Seven - Content Marketing Agency',
+  description: '#1 Most Recommended Content Marketing Agency. We Create Category Leaders on every searchable platform.',
   icons: {
     icon: [
       {
@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className="bg-background">
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
