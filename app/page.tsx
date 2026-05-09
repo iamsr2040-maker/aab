@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, ArrowDown, Briefcase, Code, Palette, Users, Star } from "lucide-react"
+import { ArrowRight, Briefcase, Code, Palette, Users } from "lucide-react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Section, SectionHeader } from "@/components/section"
@@ -8,7 +8,7 @@ import { PortfolioFilter } from "@/components/portfolio-filter"
 import { TestimonialsSection } from "@/components/testimonials"
 import { BlogPreview } from "@/components/blog-preview"
 import { StatsSection } from "@/components/stats"
-import { MagneticButton, CircleButton } from "@/components/magnetic-button"
+import { MagneticButton } from "@/components/magnetic-button"
 import { AnimatedHeading, Reveal } from "@/components/animated-text"
 import { MarqueeSection } from "@/components/marquee"
 
@@ -49,75 +49,92 @@ export default function HomePage() {
       <Navbar variant="transparent" />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        {/* Background Elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
-        </div>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-4 lg:px-8">
+        <div className="relative w-full max-w-[1600px] mx-auto rounded-3xl overflow-hidden min-h-[85vh]">
+          {/* Background Image with Blur */}
+          <div className="absolute inset-0">
+            <Image
+              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-GDDnAqTxuhLtehulXCE7PfXmBMUznT.png"
+              alt="Hero Background"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-blue-900/20" />
+          </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8 py-20 lg:py-32">
-          <div className="max-w-5xl mx-auto">
-            {/* Badge */}
+          <div className="relative z-10 flex flex-col items-center justify-center min-h-[85vh] px-6 lg:px-12 py-16">
+            {/* Top Badge */}
             <Reveal delay={0}>
-              <div className="flex items-center justify-center gap-2 mb-8">
-                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-muted text-sm font-medium text-muted-foreground">
-                  <span className="relative flex h-2 w-2">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
-                  </span>
-                  Available for new projects
+              <div className="flex flex-col items-center gap-3 mb-8">
+                <span className="text-white/90 text-xs md:text-sm font-medium uppercase tracking-widest text-center">
+                  #1 Most Recommended<br />Content Marketing Agency
                 </span>
+                <div className="flex items-center gap-4 flex-wrap justify-center">
+                  <span className="text-white/70 text-xs">Global Search Awards</span>
+                  <span className="text-white/70 text-xs">The Drum</span>
+                  <span className="text-white/70 text-xs">UK Social Media Awards</span>
+                  <span className="text-white/70 text-xs">Content Awards</span>
+                </div>
               </div>
             </Reveal>
 
             {/* Main Headline */}
-            <div className="text-center">
+            <div className="text-center max-w-6xl mx-auto">
               <AnimatedHeading
                 as="h1"
-                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium leading-[0.95] tracking-tight"
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-[120px] font-medium leading-[0.95] tracking-tight text-white"
                 delay={0.1}
               >
-                <span className="block">Crafting digital</span>
-                <span className="block mt-2">
-                  experiences that{" "}
-                  <span className="italic text-muted-foreground">inspire</span>
+                <span className="block italic" style={{ fontFamily: 'var(--font-display)' }}>We Create</span>
+                <span className="flex items-center justify-center gap-4 mt-2 flex-wrap">
+                  <span>Category</span>
+                  <span className="inline-flex items-center justify-center w-16 h-20 md:w-24 md:h-28 lg:w-32 lg:h-36 bg-white/90 rounded-2xl shadow-xl">
+                    <span className="text-2xl md:text-3xl lg:text-4xl">🥤</span>
+                  </span>
+                  <span>Leaders</span>
                 </span>
               </AnimatedHeading>
             </div>
 
-            {/* Description */}
+            {/* Subheadline */}
             <Reveal delay={0.3}>
-              <p className="mt-8 text-lg md:text-xl text-muted-foreground text-center max-w-2xl mx-auto leading-relaxed">
-                Award-winning designer and developer creating thoughtful, 
-                user-centered digital products that drive results.
+              <p className="mt-8 text-lg md:text-2xl text-white/90 text-center italic">
+                on every searchable platform
               </p>
             </Reveal>
 
-            {/* CTA Buttons */}
+            {/* Platform Logos */}
             <Reveal delay={0.4}>
-              <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <MagneticButton href="/portfolio" variant="primary" size="lg" icon="arrow">
-                  View My Work
-                </MagneticButton>
-                <MagneticButton href="/contact" variant="outline" size="lg" icon="arrow-up">
-                  Get in Touch
-                </MagneticButton>
+              <div className="mt-10 flex items-center gap-6 md:gap-10 flex-wrap justify-center">
+                <span className="text-white font-medium text-sm md:text-base">Google</span>
+                <span className="text-white font-medium text-sm md:text-base">ChatGPT</span>
+                <span className="text-white font-medium text-sm md:text-base">Gemini</span>
+                <span className="text-white font-medium text-sm md:text-base">TikTok</span>
+                <span className="text-white font-medium text-sm md:text-base">YouTube</span>
+                <span className="text-white font-medium text-sm md:text-base">Pinterest</span>
+                <span className="text-white font-medium text-sm md:text-base">GIPHY</span>
+                <span className="text-white font-medium text-sm md:text-base">reddit</span>
+                <span className="text-white font-medium text-sm md:text-base">amazon</span>
               </div>
             </Reveal>
-          </div>
 
-          {/* Scroll Indicator */}
-          <Reveal delay={0.6}>
-            <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-              <span className="text-xs font-medium text-muted-foreground uppercase tracking-widest">
-                Scroll
-              </span>
-              <div className="h-16 w-[1px] bg-border relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1/2 bg-foreground animate-bounce-soft" />
-              </div>
+            {/* Bottom Info */}
+            <div className="absolute bottom-8 left-6 right-6 lg:left-12 lg:right-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+              <Reveal delay={0.5}>
+                <p className="text-white/80 text-xs md:text-sm max-w-md leading-relaxed">
+                  Organic media planners creating, distributing & optimising<br />
+                  <span className="text-white font-medium">search-first</span> content for SEO, Social, PR, Ai and LLM search
+                </p>
+              </Reveal>
+              <Reveal delay={0.5}>
+                <p className="text-white/80 text-xs md:text-sm text-right">
+                  <span className="text-white font-medium">4 Global Offices</span> serving<br />
+                  UK, USA (New York) & EU
+                </p>
+              </Reveal>
             </div>
-          </Reveal>
+          </div>
         </div>
       </section>
 
