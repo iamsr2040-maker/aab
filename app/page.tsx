@@ -49,8 +49,8 @@ export default function HomePage() {
       <Navbar variant="transparent" />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-0 px-4 lg:px-8">
-        <div className="relative w-full max-w-[1600px] mx-auto rounded-3xl overflow-hidden min-h-screen -mt-20">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-14 px-4 lg:px-8">
+        <div className="relative w-full max-w-[1600px] mx-auto rounded-3xl overflow-hidden min-h-[calc(100vh-56px)]">
           {/* Background Image with Zoom and Blur */}
           <div className="absolute inset-0">
             <Image
@@ -63,7 +63,7 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-blue-900/40" />
           </div>
 
-          <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-6 lg:px-12 py-16 pt-32">
+          <div className="relative z-10 flex flex-col items-center justify-center min-h-[calc(100vh-56px)] px-6 lg:px-12 py-16 pt-24">
             {/* Top Badge */}
             <Reveal delay={0}>
               <div className="flex flex-col items-center gap-3 mb-8">
