@@ -9,12 +9,14 @@ import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Services", href: "/services" },
-  { name: "Portfolio", href: "/portfolio" },
-  { name: "Blog", href: "/blog" },
-  { name: "Contact", href: "/contact" },
+  { name: "Services+", href: "/services" },
+  { name: "Industries+", href: "/industries" },
+  { name: "International+", href: "/international" },
+  { name: "About+", href: "/about" },
+  { name: "Work", href: "/work" },
+  { name: "Careers", href: "/careers" },
+  { name: "Blog & Resources+", href: "/blog" },
+  { name: "Webinar", href: "/webinar" },
 ]
 
 interface NavbarProps {
@@ -64,10 +66,10 @@ export function Navbar({ variant = "default" }: NavbarProps) {
           {/* Logo */}
           <Link href="/" className="group relative z-10">
             <span 
-              className="text-2xl font-semibold tracking-tight transition-opacity duration-300 group-hover:opacity-70"
+              className="text-xl font-medium tracking-tight transition-opacity duration-300 group-hover:opacity-70"
               style={{ fontFamily: 'var(--font-display)' }}
             >
-              Folio<span className="text-accent">.</span>
+              Rise at Seven<sup className="text-[10px] ml-0.5">®</sup>
             </span>
           </Link>
 
@@ -213,7 +215,7 @@ export function Navbar({ variant = "default" }: NavbarProps) {
             )}
             style={{ transitionDelay: mobileMenuOpen ? "0.5s" : "0s" }}
           >
-            <span>&copy; {new Date().getFullYear()} Folio</span>
+            <span>&copy; {new Date().getFullYear()} Rise at Seven</span>
             <div className="flex gap-6">
               <a href="#" className="hover:text-foreground transition-colors">Twitter</a>
               <a href="#" className="hover:text-foreground transition-colors">LinkedIn</a>
