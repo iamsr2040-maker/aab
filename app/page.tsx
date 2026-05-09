@@ -49,7 +49,7 @@ export default function HomePage() {
       <Navbar variant="transparent" />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 px-4 lg:px-8">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32 px-4 lg:px-8">
         <div className="relative w-full max-w-[1600px] mx-auto rounded-3xl overflow-hidden min-h-[85vh]">
           {/* Background Image with Zoom and Blur */}
           <div className="absolute inset-0">

@@ -2,11 +2,12 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+
+// Announcement banner height for spacing
+const BANNER_HEIGHT = 40
 
 const navigation = [
   { name: "Services+", href: "/services" },
@@ -25,9 +26,11 @@ interface NavbarProps {
 
 export function Navbar({ variant = "default" }: NavbarProps) {
   const pathname = usePathname()
+  const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
   const [hidden, setHidden] = React.useState(false)
+  const [isHovering, setIsHovering] = React.useState(false)
   const lastScrollY = React.useRef(0)
 
   React.useEffect(() => {
@@ -51,15 +54,59 @@ export function Navbar({ variant = "default" }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const handleBannerClick = () => {
+    router.push("/")
+    router.refresh()
+  }
+
   return (
     <>
+      {/* Announcement Banner */}
+      <div
+        className={cn(
+          "fixed top-0 left-0 right-0 z-[60] h-10 flex items-center justify-center cursor-pointer transition-all duration-300",
+          "bg-[#9EECD2]",
+          hidden && !mobileMenuOpen && "-translate-y-full"
+        )}
+        onClick={handleBannerClick}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+      >
+        <div className="flex items-center gap-2 text-sm font-medium text-black overflow-hidden">
+          <span>🔥</span>
+          <span className={cn(
+            "transition-all duration-300",
+            isHovering && "animate-bounce"
+          )}>
+            <span className="inline-flex">
+              {["T", "h", "e", " ", "C", "a", "t", "e", "g", "o", "r", "y", " ", "L", "e", "a", "d", "e", "r", "b", "o", "a", "r", "d"].map((char, i) => (
+                <span
+                  key={i}
+                  className={cn(
+                    "inline-block transition-transform duration-300",
+                    isHovering && "animate-pulse"
+                  )}
+                  style={{
+                    animationDelay: isHovering ? `${i * 0.03}s` : "0s",
+                    transform: isHovering ? `translateY(${Math.sin(i * 0.5) * 3}px)` : "translateY(0)"
+                  }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </span>
+          </span>
+          <span>- Live Now</span>
+        </div>
+      </div>
+
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+          "fixed top-10 left-0 right-0 z-50 transition-all duration-500",
           scrolled || variant === "default"
             ? "glass py-3"
             : "bg-transparent py-5",
-          hidden && !mobileMenuOpen && "-translate-y-full"
+          hidden && !mobileMenuOpen && "-translate-y-[calc(100%+40px)]"
         )}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-8">
